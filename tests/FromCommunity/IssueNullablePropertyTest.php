@@ -70,9 +70,7 @@ JSON;
             'POST',
             'headers:/api/data',
             ['Content-Type' => 'application/json'],
-            json_encode(
-                ['value' => null],
-            )
+            json_encode(['value' => null])
         );
 
         $this->expectException(InvalidBody::class);
