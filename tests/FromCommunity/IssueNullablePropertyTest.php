@@ -15,51 +15,52 @@ final class IssueNullablePropertyTest extends BaseValidatorTest
 {
     public function testNullableFalseThrowInvalidBody(): void
     {
-        $json = <<<JSON
-            {
-              "openapi": "3.0.0",
-              "paths": {
-                "/api/data": {
-                  "post": {
-                    "requestBody": {
-                      "required": true,
-                      "content": {
-                        "application/json": {
-                          "schema": {
-                            "type": "object",
-                            "required": [
-                              "value"
-                            ],
-                            "properties": {
-                              "value": {
-                                "nullable": false,
-                                "oneOf": [
-                                  {"type": "string"},
-                                  {"type": "boolean"}
-                                ]
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "responses": {
-                      "200": {
-                        "description": "A response",
-                        "content": {
-                          "application/json": {
-                            "schema": {
-                              "type": "string"
-                            }
-                          }
-                        }
-                      }
-                    }
+        $json = /** @lang json */
+        <<<JSON
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/data": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "value"
+                ],
+                "properties": {
+                  "value": {
+                    "nullable": false,
+                    "oneOf": [
+                      {"type": "string"},
+                      {"type": "boolean"}
+                    ]
                   }
                 }
               }
             }
-        JSON;
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+JSON;
 
         $requestValidator = (new ValidatorBuilder())
             ->fromJson($json)
